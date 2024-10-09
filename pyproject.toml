@@ -1,0 +1,68 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "checkserve"
+dynamic = ["version"]
+description = 'A simple check in service for feeding programs.'
+readme = "README.md"
+requires-python = ">=3.8"
+license = "MIT"
+keywords = []
+authors = [
+  { name = "jesshart", email = "hello@jessehartman.dev" },
+]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: Implementation :: CPython",
+  "Programming Language :: Python :: Implementation :: PyPy",
+]
+dependencies = []
+
+[project.urls]
+Documentation = "https://github.com/jesshart/checkserve#readme"
+Issues = "https://github.com/jesshart/checkserve/issues"
+Source = "https://github.com/jesshart/checkserve"
+
+[tool.hatch.version]
+path = "src/checkserve/__about__.py"
+
+[tool.hatch.env]
+requires = ["hatch-pip-compile"]
+
+[tool.hatch.envs.default]
+installer = "uv"
+type = "pip-compile"
+
+[tool.hatch.envs.types]
+extra-dependencies = [
+  "mypy>=1.0.0",
+]
+[tool.hatch.envs.types.scripts]
+check = "mypy --install-types --non-interactive {args:src/checkserve tests}"
+
+[tool.coverage.run]
+source_pkgs = ["checkserve", "tests"]
+branch = true
+parallel = true
+omit = [
+  "src/checkserve/__about__.py",
+]
+
+[tool.coverage.paths]
+checkserve = ["src/checkserve", "*/checkserve/src/checkserve"]
+tests = ["tests", "*/checkserve/tests"]
+
+[tool.coverage.report]
+exclude_lines = [
+  "no cov",
+  "if __name__ == .__main__.:",
+  "if TYPE_CHECKING:",
+]
