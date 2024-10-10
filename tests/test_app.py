@@ -1,5 +1,7 @@
 import pytest
+
 from src.checkserve.app import app
+
 
 @pytest.fixture
 def client():

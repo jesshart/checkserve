@@ -1,6 +1,8 @@
-from flask import Flask, render_template
 import os
-from .config import DevelopmentConfig, UATConfig, ProductionConfig
+
+from flask import Flask, render_template
+
+from .config import DevelopmentConfig, ProductionConfig, UATConfig
 
 app = Flask(__name__)
 

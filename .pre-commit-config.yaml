@@ -1,0 +1,9 @@
+repos:
+  - repo: local
+    hooks:
+      - id: lint-fmt
+        name: Lint (Ruff)
+        entry: hatch fmt --check
+        language: python
+        pass_filenames: false
+        require_serial: true
