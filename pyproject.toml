@@ -10,9 +10,7 @@ readme = "README.md"
 requires-python = ">=3.8"
 license = "MIT"
 keywords = []
-authors = [
-  { name = "jesshart", email = "hello@jessehartman.dev" },
-]
+authors = [{ name = "jesshart", email = "hello@jessehartman.dev" }]
 classifiers = [
   "Development Status :: 4 - Beta",
   "Programming Language :: Python",
@@ -24,7 +22,7 @@ classifiers = [
   "Programming Language :: Python :: Implementation :: CPython",
   "Programming Language :: Python :: Implementation :: PyPy",
 ]
-dependencies = []
+dependencies = ["flask", "gunicorn"]
 
 [project.urls]
 Documentation = "https://github.com/jesshart/checkserve#readme"
@@ -41,10 +39,17 @@ requires = ["hatch-pip-compile"]
 installer = "uv"
 type = "pip-compile"
 
-[tool.hatch.envs.types]
-extra-dependencies = [
-  "mypy>=1.0.0",
+[tool.hatch.envs.default.scripts]
+start-dev = ["FLASK_ENV=development FLASK_APP=src/checkserve/app flask run"]
+start-uat = [
+  "FLASK_ENV=production gunicorn -w 4 -b 0.0.0.0:8000 src.checkserve.app:app",
 ]
+start-prod = [
+  "FLASK_ENV=production gunicorn -w 4 -b 0.0.0.0:8000 src.checkserve.app:app",
+]
+
+[tool.hatch.envs.types]
+extra-dependencies = ["mypy>=1.0.0"]
 [tool.hatch.envs.types.scripts]
 check = "mypy --install-types --non-interactive {args:src/checkserve tests}"
 
@@ -52,17 +57,46 @@ check = "mypy --install-types --non-interactive {args:src/checkserve tests}"
 source_pkgs = ["checkserve", "tests"]
 branch = true
 parallel = true
-omit = [
-  "src/checkserve/__about__.py",
-]
+omit = ["src/checkserve/__about__.py"]
 
 [tool.coverage.paths]
 checkserve = ["src/checkserve", "*/checkserve/src/checkserve"]
 tests = ["tests", "*/checkserve/tests"]
 
 [tool.coverage.report]
-exclude_lines = [
-  "no cov",
-  "if __name__ == .__main__.:",
-  "if TYPE_CHECKING:",
+exclude_lines = ["no cov", "if __name__ == .__main__.:", "if TYPE_CHECKING:"]
+
+[tool.black]
+skip-string-normalization = true
+line-length = 120
+
+[tool.ruff]
+# Same as Black.
+line-length = 120
+
+exclude = ["excluded_file.py"]
+lint.select = [
+  "E", # pycodestyle errors (settings from FastAPI, thanks, @tiangolo!)
+  "W", # pycodestyle warnings
+  "F", # pyflakes
+  "I", # isort
+  "C", # flake8-comprehensions
+  "B", # flake8-bugbear
 ]
+lint.ignore = [
+  "E501", # line too long, handled by black
+  "C901", # too complex
+]
+
+[tool.ruff.lint.isort]
+order-by-type = true
+relative-imports-order = "closest-to-furthest"
+extra-standard-library = ["typing"]
+section-order = [
+  "future",
+  "standard-library",
+  "third-party",
+  "first-party",
+  "local-folder",
+]
+known-first-party = []
