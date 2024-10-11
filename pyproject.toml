@@ -22,7 +22,7 @@ classifiers = [
   "Programming Language :: Python :: Implementation :: CPython",
   "Programming Language :: Python :: Implementation :: PyPy",
 ]
-dependencies = ["flask", "gunicorn"]
+dependencies = ["flask", "gunicorn", "flask_sqlalchemy", "flask_migrate"]
 
 [project.urls]
 Documentation = "https://github.com/jesshart/checkserve#readme"
@@ -34,6 +34,9 @@ path = "src/checkserve/__about__.py"
 
 [tool.hatch.env]
 requires = ["hatch-pip-compile"]
+
+[tool.hatch.envs.default.env-vars]
+FLASK_APP = "src/checkserve/app.py"
 
 [tool.hatch.envs.default]
 installer = "uv"

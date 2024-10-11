@@ -1,9 +1,13 @@
 import os
+from pathlib import Path
 
+# Base directory for your app
+basedir = Path(__file__).resolve().parent
 
 class Config:
     DEBUG = False
     TESTING = False
+    SQLALCHEMY_DATABASE_URI = f'sqlite:///{basedir / "app.db"}'
     SECRET_KEY = os.getenv("SECRET_KEY", "default_secret_key")
 
 class DevelopmentConfig(Config):
