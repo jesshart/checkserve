@@ -50,6 +50,16 @@ start-uat = [
 start-prod = [
   "FLASK_ENV=production gunicorn -w 4 -b 0.0.0.0:8000 src.checkserve.app:app",
 ]
+# Script to remove and re-add SQLite integration
+reset-sqlite = [
+  "rm -f src/checkserve/app.db",                       # Remove the SQLite database file
+  "rm -rf migrations",                                 # Remove the migrations directory
+  "hatch run flask db init",                           # Reinitialize migrations
+  "hatch run flask db migrate -m 'Initial migration'", # Generate initial migration
+  "hatch run flask db upgrade",                        # Apply the migration and recreate tables
+]
+
+open-db = ["sqlite3 src/checkserve/app.db"]
 
 [tool.hatch.envs.types]
 extra-dependencies = ["mypy>=1.0.0"]
