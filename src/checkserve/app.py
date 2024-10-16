@@ -1,8 +1,8 @@
 import os
-
 from flask import Flask, render_template
-
-from .config import DevelopmentConfig, ProductionConfig, UATConfig
+from checkserve.config import DevelopmentConfig, ProductionConfig, UATConfig
+from checkserve.extensions import db, migrate
+from checkserve.models import User, Visit  # Import models after db is initialized
 
 app = Flask(__name__)
 
@@ -18,9 +18,13 @@ elif env == 'production':
 else:
     app.config.from_object(DevelopmentConfig)
 
+# Initialize the db and migrations with the app
+db.init_app(app)
+migrate.init_app(app, db)
+
 @app.route('/')
 def hello_world():
     return render_template('index.html')
 
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True)
