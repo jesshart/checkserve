@@ -21,3 +21,7 @@ class UATConfig(Config):
 class ProductionConfig(Config):
     DEBUG = False
     ENV = 'production'
+
+class TestingConfig(Config):
+    TESTING = True
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///:memory:'
