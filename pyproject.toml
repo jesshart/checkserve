@@ -22,7 +22,13 @@ classifiers = [
   "Programming Language :: Python :: Implementation :: CPython",
   "Programming Language :: Python :: Implementation :: PyPy",
 ]
-dependencies = ["flask", "gunicorn", "flask_sqlalchemy", "flask_migrate"]
+dependencies = [
+  "flask",
+  "gunicorn",
+  "flask_sqlalchemy",
+  "flask_migrate",
+  "pytest-flask",
+]
 
 [project.urls]
 Documentation = "https://github.com/jesshart/checkserve#readme"
@@ -58,6 +64,8 @@ reset-sqlite = [
   "hatch run flask db migrate -m 'Initial migration'", # Generate initial migration
   "hatch run flask db upgrade",                        # Apply the migration and recreate tables
 ]
+
+upgrade-db = ["hatch run flask db upgrade"]
 
 open-db = ["sqlite3 src/checkserve/app.db"]
 
