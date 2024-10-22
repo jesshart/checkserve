@@ -1,12 +1,14 @@
-from checkserve.extensions import db
 from datetime import datetime
+
+from checkserve.extensions import db
+
 
 class Client(db.Model):
     __tablename__ = 'client'
     id = db.Column(db.Integer, primary_key=True)
     name_last = db.Column(db.String(80), nullable=False)
     name_first = db.Column(db.String(80), nullable=False)
-    
+
     # Relationship to ClientDetails and Visits
     details = db.relationship('ClientDetails', backref='client', lazy=True, uselist=False)
     visits = db.relationship('Visits', backref='client', lazy=True)
@@ -51,7 +53,7 @@ class ServeStatus(db.Model):
     time_check_in = db.Column(db.DateTime, default=datetime.utcnow)
     time_estimated_serve = db.Column(db.DateTime, nullable=True)
     has_been_served = db.Column(db.Boolean, nullable=False, default=False)
-    
+
     # Relationship with Visits
     visits = db.relationship('Visits', backref='serve_status', lazy=True)
 

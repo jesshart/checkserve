@@ -1,8 +1,10 @@
+from datetime import UTC, datetime
+
 import pytest
-from checkserve.extensions import db
-from checkserve.models import Client, ClientDetails, Visits, ServeStatus
-from datetime import datetime, UTC
 from checkserve.app import create_app
+from checkserve.extensions import db
+from checkserve.models import Client, ClientDetails, ServeStatus, Visits
+
 
 @pytest.fixture(scope='module')
 def app():
