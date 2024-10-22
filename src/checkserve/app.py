@@ -1,10 +1,11 @@
 import os
+from datetime import datetime
 
-from flask import Flask, render_template, request
+from flask import Flask, jsonify, render_template, request
 
 from checkserve.config import DevelopmentConfig, ProductionConfig, TestingConfig, UATConfig
 from checkserve.extensions import db, migrate
-from checkserve.models import Client
+from checkserve.models import Client, ClientDetails
 
 
 def create_app(config_name=None):
@@ -64,6 +65,54 @@ def register_routes(app):
             # Return JSON response
             return {"results": results_list}
         return {"results": []}
+
+    @app.route('/add-client', methods=['POST'])
+    def add_client():
+        print("Add Client route called")  # Debugging step
+
+        # Extract form data
+        first_name = request.form.get('first_name')
+        last_name = request.form.get('last_name')
+        count_adults = request.form.get('count_adults')
+        count_children = request.form.get('count_children')
+        count_seniors = request.form.get('count_seniors')
+        internal_note = request.form.get('internal_note')
+        needs_food_cat = bool(request.form.get('needs_food_cat'))
+        needs_food_dog = bool(request.form.get('needs_food_dog'))
+
+        print(f"Received data: {first_name}, {last_name}, {count_adults}, {count_children}, {count_seniors}")
+
+        # Validate the required fields
+        if not first_name or not last_name or not count_adults or not count_children or not count_seniors:
+            return jsonify({"error": "Missing required fields"}), 400
+
+        try:
+            # Create a new Client
+            new_client = Client(name_first=first_name, name_last=last_name)
+            db.session.add(new_client)
+            db.session.commit()  # Commit the client to get its ID
+
+            # Create ClientDetails associated with the Client
+            client_details = ClientDetails(
+                id_client=new_client.id,
+                count_adults=count_adults,
+                count_children=count_children,
+                count_seniors=count_seniors,
+                internal_note=internal_note,
+                needs_food_cat=needs_food_cat,
+                needs_food_dog=needs_food_dog,
+                date_added=datetime.utcnow(),
+            )
+            db.session.add(client_details)
+            db.session.commit()  # Commit the client details
+
+            print(f"Client {first_name} {last_name} added successfully.")
+            return jsonify({"message": "Client added successfully!"}), 200
+
+        except Exception as e:
+            print(f"Error occurred: {str(e)}")
+            db.session.rollback()  # Rollback if any error occurs
+            return jsonify({"error": "An error occurred while adding the client."}), 500
 
 
 # This creates an application instance that can be used by other modules and tests
