@@ -1,11 +1,86 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    text-align: center;
+}
+
+header {
+    width: 100%;
+    padding: 10px;
+    font-size: 1.5em;
+    box-sizing: border-box;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 20px;
+}
+
+form {
+    width: 300px;
+    margin: 0 auto;
+}
+
+input[type="text"] {
+    padding: 10px;
+    width: 100%;
+    margin-bottom: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+ul.dropdown {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    max-height: 200px;
+    overflow-y: auto;
+    background-color: white;
+    display: none;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+ul.dropdown li {
+    display: flex;
+    justify-content: space-between;
+    /* This aligns the name left and button right */
+    padding: 10px;
+    cursor: pointer;
+    border-bottom: 1px solid #eee;
+}
+
+ul.dropdown li:hover {
+    background-color: #f1f1f1;
+}
+
+ul.dropdown li:last-child {
+    border-bottom: none;
+}
+
+span.client-name {
+    font-weight: bold;
     color: #333;
 }
 
-h1 {
-    color: #2c3e50;
-    text-align: center;
-    padding-top: 20px;
+button.check-in-button {
+    background-color: #4CAF50;
+    /* Green button */
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button.check-in-button:hover {
+    background-color: #45a049;
+    /* Darker green on hover */
 }

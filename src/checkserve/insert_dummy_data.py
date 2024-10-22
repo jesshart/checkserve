@@ -18,8 +18,8 @@ def insert_dummy_data():
 
         # Inserting dummy clients
         clients = [
-            Client(name_last="Doe", name_first="John"),
-            Client(name_last="Smith", name_first="Jane"),
+            Client(name_last="Hartman", name_first="Bill"),
+            Client(name_last="Hartman", name_first="Cynthia"),
             Client(name_last="Johnson", name_first="Michael"),
         ]
         db.session.add_all(clients)
