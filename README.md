@@ -24,6 +24,9 @@ hatch run flask db upgrade
 # Reset db
 hatch run reset-sqlite
 hatch run open-db
+
+# Insert dummy data
+hatch run insert-dummy-data
 ```
 
 ## License

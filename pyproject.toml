@@ -69,6 +69,8 @@ upgrade-db = ["hatch run flask db upgrade"]
 
 open-db = ["sqlite3 src/checkserve/app.db"]
 
+insert-dummy-data = ["python -m src.checkserve.insert_dummy_data"]
+
 [tool.hatch.envs.types]
 extra-dependencies = ["mypy>=1.0.0"]
 [tool.hatch.envs.types.scripts]

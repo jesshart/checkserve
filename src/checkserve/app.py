@@ -1,8 +1,11 @@
 import os
+
 from flask import Flask, render_template
-from checkserve.config import DevelopmentConfig, ProductionConfig, UATConfig, TestingConfig
+
+from checkserve.config import DevelopmentConfig, ProductionConfig, TestingConfig, UATConfig
 from checkserve.extensions import db, migrate
 from checkserve.models import *  # Import models after db is initialized
+
 
 def create_app(config_name=None):
     app = Flask(__name__)
