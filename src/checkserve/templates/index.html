@@ -6,10 +6,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CheckServe</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
 </head>
 
 <body>
-    <h1>CheckServe</h1>
+    <header>
+        <h1>CheckServe</h1>
+    </header>
+
+    <main>
+        <form action="/" method="POST">
+            <input type="text" id="userInput" name="userInput" placeholder="Search clients..." autocomplete="off">
+        </form>
+
+        <!-- Results will be displayed here, directly below the search box -->
+        <ul id="results" class="dropdown">
+            <!-- Populated via AJAX -->
+        </ul>
+    </main>
 </body>
 
 </html>
