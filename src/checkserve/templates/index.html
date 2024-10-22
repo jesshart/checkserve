@@ -21,9 +21,42 @@
         </form>
 
         <!-- Results will be displayed here, directly below the search box -->
-        <ul id="results" class="dropdown">
-            <!-- Populated via AJAX -->
-        </ul>
+        <ul id="results" class="dropdown"></ul>
+
+        <!-- Modal form for adding new client -->
+        <div id="addClientModal" class="modal" style="display: none;">
+            <div class="modal-content">
+                <span id="closeModal" class="close">&times;</span>
+                <h2>Add New Client</h2>
+                <form id="clientForm">
+                    <label for="first_name">First Name:</label>
+                    <input type="text" id="first_name" name="first_name" required><br>
+
+                    <label for="last_name">Last Name:</label>
+                    <input type="text" id="last_name" name="last_name" required><br>
+
+                    <label for="count_adults">Adults:</label>
+                    <input type="number" id="count_adults" name="count_adults" required min="0"><br>
+
+                    <label for="count_children">Children:</label>
+                    <input type="number" id="count_children" name="count_children" required min="0"><br>
+
+                    <label for="count_seniors">Seniors:</label>
+                    <input type="number" id="count_seniors" name="count_seniors" required min="0"><br>
+
+                    <label for="internal_note">Internal Note:</label>
+                    <input type="text" id="internal_note" name="internal_note"><br>
+
+                    <label for="needs_food_cat">Needs Cat Food?</label>
+                    <input type="checkbox" id="needs_food_cat" name="needs_food_cat"><br>
+
+                    <label for="needs_food_dog">Needs Dog Food?</label>
+                    <input type="checkbox" id="needs_food_dog" name="needs_food_dog"><br>
+
+                    <button type="button" id="submitClientForm">Add New Client</button>
+                </form>
+            </div>
+        </div>
     </main>
 </body>
 
